@@ -1,6 +1,11 @@
 #pragma once
 #include <GL/glew.h>
 
+struct ViewPortState {
+    GLsizei width = 512;
+    GLsizei height = 512;
+};
+
 struct ColorState {
     bool rMask = true;
     bool gMask = true;
@@ -24,5 +29,6 @@ struct PipelineState
     ColorState colorState;
     DepthStencilState depthStencilState;
     BlendingState blendingState;
+    ViewPortState viewPortState;
 };
 

@@ -15,12 +15,9 @@ void Input::update() {
                 mQuit = true;
 
             if(event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
-                glViewport(0, 0, event.window.data1, event.window.data2);
+                mWidth = event.window.data1;
+                mHeight = event.window.data2;
             }
         }
     }
-}
-
-bool Input::quit() const {
-    return mQuit;
 }

@@ -42,11 +42,19 @@ void Device::update() {
 }
 
 bool Device::isRunning() const {
-    return !mInput->quit();
+    return !mInput->mQuit;
 }
 
 void Device::swapBuffers() {
     SDL_GL_SwapWindow(mMainWindow);
+}
+
+unsigned Device::width() const {
+    return mInput->mWidth;
+}
+
+unsigned Device::height() const {
+    return mInput->mHeight;
 }
 
 Device::~Device() {

@@ -14,7 +14,10 @@ SOURCES += main.cpp \
     System/GL/Pipeline/shadermanager.cpp \
     System/GL/Buffer/staticbuffer.cpp \
     System/GL/Texture/texture.cpp \
-    System/GL/Pipeline/pipelinestate.cpp
+    System/GL/Pipeline/pipelinestate.cpp \
+    System/tools.cpp \
+    System/GL/Texture/rendertarget.cpp \
+    System/GL/Texture/framebuffer.cpp
 
 LIBS += -lSDL2 -lGLEW -lGL -lSDL2_image
 
@@ -31,4 +34,7 @@ HEADERS += \
     System/GL/Pipeline/shadermanager.hpp \
     System/GL/Buffer/staticbuffer.hpp \
     System/GL/Texture/texture.hpp \
-    System/GL/Pipeline/pipelinestate.hpp
+    System/GL/Pipeline/pipelinestate.hpp \
+    System/tools.hpp \
+    System/GL/Texture/rendertarget.hpp \
+    System/GL/Texture/framebuffer.hpp

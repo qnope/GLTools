@@ -1,5 +1,4 @@
-#ifndef DYNAMICBUFFER_H
-#define DYNAMICBUFFER_H
+#pragma once
 
 #include "System/GL/glresource.hpp"
 
@@ -45,5 +44,3 @@ private:
     GLsizeiptr mTotalSize; //!< size * 3
     char *mPtr;
 };
-
-#endif // DYNAMICBUFFER_H

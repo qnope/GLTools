@@ -6,6 +6,7 @@
 #include "System/GL/Pipeline/pipeline.hpp"
 #include "System/GL/Pipeline/shadermanager.hpp"
 #include "System/GL/Texture/texture.hpp"
+#include "System/GL/Texture/framebuffer.hpp"
 
 struct Material {
     GLsampler2D diffuse;
@@ -47,16 +48,18 @@ int main(int argc, char *argv[])
 
     ShaderManager shaderManager;
     Pipeline pipeline;
-
     pipeline.attach(shaderManager.shader("../Shaders/shader.vert", GL_VERTEX_SHADER));
     pipeline.attach(shaderManager.shader("../Shaders/shader.frag", GL_FRAGMENT_SHADER));
-
     pipeline.create();
-
     PipelineState pipelineState;
     pipelineState.blendingState.blendingEnable = true;
 
-    pipeline.setPipelineState(pipelineState);
+    Pipeline final;
+    final.attach(shaderManager.shader("../Shaders/final.vert", GL_VERTEX_SHADER));
+    final.attach(shaderManager.shader("../Shaders/final.frag", GL_FRAGMENT_SHADER));
+    final.create();
+
+    PipelineState finalState;
 
     Texture texture(GL_TEXTURE_2D, "../Images/img2.png");
 
@@ -64,13 +67,20 @@ int main(int argc, char *argv[])
 
     glClearColor(1, 1, 1, 1);
 
+    FrameBuffer fbo;
+
+    fbo.addColorRenderTarget(RenderTarget::texture2D(1024, 1024, GL_RGB8));
+
     while(device.isRunning()) {
         device.update();
 
+        // This part is to render material into a fbo
         *materialsBuffer.map<Material>() = Material{texture};
-
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+        pipelineState.viewPortState.width = 1024;
+        pipelineState.viewPortState.height = 1024;
+        pipeline.setPipelineState(pipelineState);
+        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fbo);
+        glClear(GL_COLOR_BUFFER_BIT);
         pipeline.bind();
         glBindVertexArray(vao);
         glBindBufferRange(GL_UNIFORM_BUFFER, 0, materialsBuffer,
@@ -79,6 +89,18 @@ int main(int argc, char *argv[])
         glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_INT, 0);
 
         materialsBuffer.roundRobin(); // go to another buffer part
+
+        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+
+        // Here we render the fbo's texture to the screen
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        finalState.viewPortState.width = device.width();
+        finalState.viewPortState.height = device.height();
+        final.setPipelineState(finalState);
+        final.bind();
+        fbo.bindTextures(0, 0, 1);
+        glBindVertexArray(vao);
+        glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_INT, 0);
 
         device.swapBuffers();
     }

@@ -6,5 +6,13 @@ class StaticBuffer : public GLResource {
 public:
     StaticBuffer(GLsizeiptr size, void *data);
 
+    void pushData(void *data, GLsizeiptr size);
+
     ~StaticBuffer();
+
+private:
+    GLsizeiptr mSize;
+    GLsizeiptr mOffset;
+
+    void resizeBuffer(GLsizeiptr size);
 };

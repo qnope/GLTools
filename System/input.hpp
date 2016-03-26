@@ -1,13 +1,14 @@
 #pragma once
 
+class Device;
+
 class Input
 {
+    friend Device;
 public:
     Input(unsigned width, unsigned height);
 
     void update();
-
-    bool quit() const;
 
 private:
     unsigned mWidth;

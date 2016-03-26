@@ -12,6 +12,9 @@ public:
 
     bool isRunning() const;
 
+    unsigned width() const;
+    unsigned height() const;
+
     void update();
 
     void swapBuffers();

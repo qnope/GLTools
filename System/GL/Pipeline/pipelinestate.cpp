@@ -10,4 +10,6 @@ void PipelineState::perform() const {
 
     else
         glDisable(GL_BLEND);
+
+    glViewport(0, 0, viewPortState.width, viewPortState.height);
 }
