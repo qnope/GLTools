@@ -12,7 +12,11 @@ void Pipeline::attach(GLuint shader) {
 
 void Pipeline::bind() {
     glUseProgram(mId);
-    mRasterizationState.perform();
+    mPipelineState.perform();
+}
+
+void Pipeline::setPipelineState(const PipelineState &ps) {
+    mPipelineState = ps;
 }
 
 void Pipeline::create() {

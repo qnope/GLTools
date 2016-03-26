@@ -1,7 +1,7 @@
 #pragma once
 
 #include "System/GL/glresource.hpp"
-#include "System/GL/Pipeline/rasterizationstate.hpp"
+#include "System/GL/Pipeline/pipelinestate.hpp"
 
 class Pipeline : public GLResource
 {
@@ -12,10 +12,10 @@ public:
     void create();
     void bind();
 
-    void setRasterizationState(RasterizationState const &rs);
+    void setPipelineState(PipelineState const &ps);
 
     ~Pipeline();
 
 private:
-    RasterizationState mRasterizationState;
+    PipelineState mPipelineState;
 };

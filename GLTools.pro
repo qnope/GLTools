@@ -12,9 +12,9 @@ SOURCES += main.cpp \
     System/GL/Pipeline/pipeline.cpp \
     System/GL/Pipeline/shader.cpp \
     System/GL/Pipeline/shadermanager.cpp \
-    System/GL/Pipeline/rasterizationstate.cpp \
     System/GL/Buffer/staticbuffer.cpp \
-    System/GL/Texture/texture.cpp
+    System/GL/Texture/texture.cpp \
+    System/GL/Pipeline/pipelinestate.cpp
 
 LIBS += -lSDL2 -lGLEW -lGL -lSDL2_image
 
@@ -29,6 +29,6 @@ HEADERS += \
     System/GL/Pipeline/shader.hpp \
     System/noncopyable.hpp \
     System/GL/Pipeline/shadermanager.hpp \
-    System/GL/Pipeline/rasterizationstate.hpp \
     System/GL/Buffer/staticbuffer.hpp \
-    System/GL/Texture/texture.hpp
+    System/GL/Texture/texture.hpp \
+    System/GL/Pipeline/pipelinestate.hpp

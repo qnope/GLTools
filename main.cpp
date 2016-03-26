@@ -13,7 +13,7 @@ struct Material {
 
 int main(int argc, char *argv[])
 {
-    Device device(800, 600, "Graphic Engine", true);
+    Device device(512, 512, "Graphic Engine", true);
 
     float vertices[] = {-1, -1,
                         -1, 1,
@@ -48,12 +48,17 @@ int main(int argc, char *argv[])
     ShaderManager shaderManager;
     Pipeline pipeline;
 
-    pipeline.attach(shaderManager.shader("../Shaders/triangle.vert", GL_VERTEX_SHADER));
-    pipeline.attach(shaderManager.shader("../Shaders/triangle.frag", GL_FRAGMENT_SHADER));
+    pipeline.attach(shaderManager.shader("../Shaders/shader.vert", GL_VERTEX_SHADER));
+    pipeline.attach(shaderManager.shader("../Shaders/shader.frag", GL_FRAGMENT_SHADER));
 
     pipeline.create();
 
-    Texture texture(GL_TEXTURE_2D, "../Images/img.png");
+    PipelineState pipelineState;
+    pipelineState.blendingState.blendingEnable = true;
+
+    pipeline.setPipelineState(pipelineState);
+
+    Texture texture(GL_TEXTURE_2D, "../Images/img2.png");
 
     DynamicBuffer materialsBuffer(sizeof(Material), false);
 
@@ -73,7 +78,7 @@ int main(int argc, char *argv[])
         materialsBuffer.flush(); // Ensure date were wrote just before draw
         glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_INT, 0);
 
-        materialsBuffer.roundRobin(); // go to the second buffer part
+        materialsBuffer.roundRobin(); // go to another buffer part
 
         device.swapBuffers();
     }
