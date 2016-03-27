@@ -23,6 +23,10 @@ void StaticBuffer::pushData(void *data, GLsizeiptr size) {
     mOffset += size;
 }
 
+GLsizeiptr StaticBuffer::offset() const {
+    return mOffset;
+}
+
 void StaticBuffer::resizeBuffer(GLsizeiptr size) {
     GLuint newBuffer;
 

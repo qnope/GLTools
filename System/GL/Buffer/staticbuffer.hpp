@@ -8,6 +8,8 @@ public:
 
     void pushData(void *data, GLsizeiptr size);
 
+    GLsizeiptr offset() const;
+
     ~StaticBuffer();
 
 private:

@@ -13,5 +13,6 @@ public:
 private:
     unsigned mWidth;
     unsigned mHeight;
+    bool mResized = false;
     bool mQuit = false;
 };

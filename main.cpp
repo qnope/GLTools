@@ -14,7 +14,7 @@ struct Material {
 
 int main(int argc, char *argv[])
 {
-    Device device(512, 512, "Graphic Engine", true);
+    Device device(800, 600, "Graphic Engine", true);
 
     float vertices[] = {-1, -1,
                         -1, 1,
@@ -28,15 +28,17 @@ int main(int argc, char *argv[])
 
     GLuint index[] = {0, 1, 2, 3};
 
+    // Build buffers
     StaticBuffer bufferVertices(sizeof vertices, vertices);
     StaticBuffer bufferUv(sizeof uv, uv);
     StaticBuffer bufferIndex(sizeof index, index);
-    Vao vao;
+    Vao vao; // Build VAO
 
     GLuint buffers[] = {bufferVertices, bufferUv};
     GLintptr offsets[] = {0, 0};
     GLsizei strides[] = {2 * sizeof(float), 2 * sizeof(float)};
 
+    // set VAO for vertices and uv
     vao.enableArray(0);
     vao.enableArray(1);
     vao.attribBinding(0, 0);
@@ -47,13 +49,18 @@ int main(int argc, char *argv[])
     vao.format(1, 2, GL_FLOAT, false, 0);
 
     ShaderManager shaderManager;
+
+    // Create the first pipeline to render on one FBO
     Pipeline pipeline;
     pipeline.attach(shaderManager.shader("../Shaders/shader.vert", GL_VERTEX_SHADER));
     pipeline.attach(shaderManager.shader("../Shaders/shader.frag", GL_FRAGMENT_SHADER));
     pipeline.create();
+
+    // Enable alpha blending to render image
     PipelineState pipelineState;
     pipelineState.blendingState.blendingEnable = true;
 
+    // Final pipeline to render the texture's fbo on the screen
     Pipeline final;
     final.attach(shaderManager.shader("../Shaders/final.vert", GL_VERTEX_SHADER));
     final.attach(shaderManager.shader("../Shaders/final.frag", GL_FRAGMENT_SHADER));
@@ -61,7 +68,7 @@ int main(int argc, char *argv[])
 
     PipelineState finalState;
 
-    Texture texture(GL_TEXTURE_2D, "../Images/img2.png");
+    std::unique_ptr<Texture> texture = Texture::load2DImage("../Images/img2.png");
 
     DynamicBuffer materialsBuffer(sizeof(Material), false);
 
@@ -75,7 +82,7 @@ int main(int argc, char *argv[])
         device.update();
 
         // This part is to render material into a fbo
-        *materialsBuffer.map<Material>() = Material{texture};
+        *materialsBuffer.map<Material>() = Material{*texture};
         pipelineState.viewPortState.width = 1024;
         pipelineState.viewPortState.height = 1024;
         pipeline.setPipelineState(pipelineState);
