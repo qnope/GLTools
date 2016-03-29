@@ -59,6 +59,9 @@ int main(int argc, char *argv[])
     // Enable alpha blending to render image
     PipelineState pipelineState;
     pipelineState.blendingState.blendingEnable = true;
+    pipelineState.blendingState.destFactor = GL_ONE_MINUS_SRC_ALPHA;
+    pipelineState.blendingState.srcFactor = GL_SRC_ALPHA;
+    pipelineState.depthStencilState.depthEnable = false;
 
     // Final pipeline to render the texture's fbo on the screen
     Pipeline final;
@@ -67,6 +70,8 @@ int main(int argc, char *argv[])
     final.create();
 
     PipelineState finalState;
+
+    finalState.depthStencilState.depthEnable = false;
 
     TextureManager textureManager;
 
@@ -102,7 +107,7 @@ int main(int argc, char *argv[])
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 
         // Here we render the fbo's texture to the screen
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT);
         finalState.viewPortState.width = device.width();
         finalState.viewPortState.height = device.height();
         final.setPipelineState(finalState);

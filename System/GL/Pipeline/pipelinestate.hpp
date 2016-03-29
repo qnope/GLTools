@@ -14,12 +14,15 @@ struct ColorState {
 };
 
 struct DepthStencilState {
+    bool depthEnable = true;
     bool depthMask = true;
     GLenum depthFunc = GL_LESS;
 };
 
 struct BlendingState {
     bool blendingEnable = false;
+    GLenum srcFactor = GL_ONE;
+    GLenum destFactor = GL_ZERO;
 };
 
 struct PipelineState
