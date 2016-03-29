@@ -1,5 +1,4 @@
 #pragma once
-
 #include "texture.hpp"
 #include <unordered_map>
 

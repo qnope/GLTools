@@ -7,8 +7,9 @@
 #include "System/GL/Pipeline/shadermanager.hpp"
 #include "System/GL/Texture/texturemanager.hpp"
 #include "System/GL/Texture/framebuffer.hpp"
+#include "System/Model/model.hpp"
 
-struct Material {
+struct Materials {
     GLsampler2D diffuse;
 };
 
@@ -61,7 +62,6 @@ int main(int argc, char *argv[])
     pipelineState.blendingState.blendingEnable = true;
     pipelineState.blendingState.destFactor = GL_ONE_MINUS_SRC_ALPHA;
     pipelineState.blendingState.srcFactor = GL_SRC_ALPHA;
-    pipelineState.depthStencilState.depthEnable = false;
 
     // Final pipeline to render the texture's fbo on the screen
     Pipeline final;
@@ -71,13 +71,11 @@ int main(int argc, char *argv[])
 
     PipelineState finalState;
 
-    finalState.depthStencilState.depthEnable = false;
-
     TextureManager textureManager;
 
     GLsampler2D texture = textureManager.image2D("../Images/img2.png");
 
-    MappableBuffer materialsBuffer(sizeof(Material), true, false);
+    MappableBuffer materialsBuffer(sizeof(Materials), true, false);
 
     glClearColor(1, 1, 1, 1);
 
@@ -89,7 +87,7 @@ int main(int argc, char *argv[])
         device.update();
 
         // This part is to render material into a fbo
-        *materialsBuffer.map<Material>() = Material{texture};
+        *materialsBuffer.map<Materials>() = Materials{texture};
         pipelineState.viewPortState.width = 1024;
         pipelineState.viewPortState.height = 1024;
         pipeline.setPipelineState(pipelineState);

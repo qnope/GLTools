@@ -18,9 +18,12 @@ SOURCES += main.cpp \
     System/GL/Texture/framebuffer.cpp \
     System/GL/Buffer/unmappablebuffer.cpp \
     System/GL/Buffer/mappablebuffer.cpp \
-    System/GL/Texture/texturemanager.cpp
+    System/GL/Texture/texturemanager.cpp \
+    System/Model/model.cpp \
+    System/Model/mesh.cpp \
+    System/Model/material.cpp
 
-LIBS += -lSDL2 -lGLEW -lGL -lSDL2_image
+LIBS += -lSDL2 -lGLEW -lGL -lSDL2_image -lassimp
 
 HEADERS += \
     System/device.hpp \
@@ -39,7 +42,11 @@ HEADERS += \
     System/GL/Texture/framebuffer.hpp \
     System/GL/Buffer/unmappablebuffer.hpp \
     System/GL/Buffer/mappablebuffer.hpp \
-    System/GL/Texture/texturemanager.hpp
+    System/GL/Texture/texturemanager.hpp \
+    System/Model/model.hpp \
+    System/Model/mesh.hpp \
+    System/Model/material.hpp \
+    System/glm.hpp
 
 DISTFILES += \
     Shaders/shader.frag \

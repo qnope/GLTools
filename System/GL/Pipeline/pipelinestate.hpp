@@ -14,7 +14,7 @@ struct ColorState {
 };
 
 struct DepthStencilState {
-    bool depthEnable = true;
+    bool depthEnable = false;
     bool depthMask = true;
     GLenum depthFunc = GL_LESS;
 };

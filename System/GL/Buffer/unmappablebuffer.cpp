@@ -1,6 +1,5 @@
 #include "unmappablebuffer.hpp"
 #include "System/tools.hpp"
-#include <iostream>
 
 UnmappableBuffer::UnmappableBuffer(GLsizeiptr size, void *data, GLenum usage) :
     mSize(nextPowerOfTwo(size)),
