@@ -18,7 +18,7 @@ public:
     ~Texture();
 
 public:
-    static std::unique_ptr<Texture> load2DImage(std::string const &path);
+    static std::unique_ptr<Texture> loadImage2D(std::string const &path);
 
 private:
     GLuint64 mHandle;

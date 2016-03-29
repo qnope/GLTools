@@ -5,7 +5,7 @@
 #include "System/GL/Pipeline/vao.hpp"
 #include "System/GL/Pipeline/pipeline.hpp"
 #include "System/GL/Pipeline/shadermanager.hpp"
-#include "System/GL/Texture/texture.hpp"
+#include "System/GL/Texture/texturemanager.hpp"
 #include "System/GL/Texture/framebuffer.hpp"
 
 struct Material {
@@ -68,7 +68,9 @@ int main(int argc, char *argv[])
 
     PipelineState finalState;
 
-    std::unique_ptr<Texture> texture = Texture::load2DImage("../Images/img2.png");
+    TextureManager textureManager;
+
+    GLsampler2D texture = textureManager.image2D("../Images/img2.png");
 
     MappableBuffer materialsBuffer(sizeof(Material), true, false);
 
@@ -82,7 +84,7 @@ int main(int argc, char *argv[])
         device.update();
 
         // This part is to render material into a fbo
-        *materialsBuffer.map<Material>() = Material{*texture};
+        *materialsBuffer.map<Material>() = Material{texture};
         pipelineState.viewPortState.width = 1024;
         pipelineState.viewPortState.height = 1024;
         pipeline.setPipelineState(pipelineState);

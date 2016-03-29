@@ -21,7 +21,7 @@ void Texture::parameter() {
 }
 
 
-std::unique_ptr<Texture> Texture::load2DImage(const std::string &path) {
+std::unique_ptr<Texture> Texture::loadImage2D(const std::string &path) {
     std::unique_ptr<Texture> texture = std::make_unique<Texture>();
 
     SDL_Surface *surface = IMG_Load(path.c_str());

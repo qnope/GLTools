@@ -2,7 +2,6 @@
 #include "shader.hpp"
 #include <memory>
 #include <unordered_map>
-#include <tuple>
 
 class ShaderManager {
 public:

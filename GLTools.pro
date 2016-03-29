@@ -17,7 +17,8 @@ SOURCES += main.cpp \
     System/GL/Texture/rendertarget.cpp \
     System/GL/Texture/framebuffer.cpp \
     System/GL/Buffer/unmappablebuffer.cpp \
-    System/GL/Buffer/mappablebuffer.cpp
+    System/GL/Buffer/mappablebuffer.cpp \
+    System/GL/Texture/texturemanager.cpp
 
 LIBS += -lSDL2 -lGLEW -lGL -lSDL2_image
 
@@ -37,7 +38,8 @@ HEADERS += \
     System/GL/Texture/rendertarget.hpp \
     System/GL/Texture/framebuffer.hpp \
     System/GL/Buffer/unmappablebuffer.hpp \
-    System/GL/Buffer/mappablebuffer.hpp
+    System/GL/Buffer/mappablebuffer.hpp \
+    System/GL/Texture/texturemanager.hpp
 
 DISTFILES += \
     Shaders/shader.frag \
