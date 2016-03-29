@@ -3,14 +3,14 @@
 #include "System/GL/glresource.hpp"
 
 /**
- * @brief The DynamicBuffer class
+ * @brief The MappableBuffer class
  *
  * This buffer use the triple buffering with robin count
  */
-class DynamicBuffer : public GLResource
+class MappableBuffer : public GLResource
 {
 public:
-    DynamicBuffer(GLsizeiptr size, bool read = false);
+    MappableBuffer(GLsizeiptr size, bool write = true, bool read = false);
 
     template<typename T>
     T *map() {
@@ -18,7 +18,6 @@ public:
     }
 
     GLintptr currentOffset();
-
 
     GLsizeiptr size();
 
@@ -36,7 +35,7 @@ public:
      */
     void roundRobin();
 
-    ~DynamicBuffer();
+    ~MappableBuffer();
 
 private:
     unsigned mIndex; //!< 0, 1, 2 : triple buffering

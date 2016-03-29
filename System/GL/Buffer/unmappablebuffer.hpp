@@ -2,19 +2,20 @@
 
 #include "System/GL/glresource.hpp"
 
-class StaticBuffer : public GLResource {
+class UnmappableBuffer : public GLResource {
 public:
-    StaticBuffer(GLsizeiptr size, void *data);
+    UnmappableBuffer(GLsizeiptr size, void *data, GLenum usage);
 
     void pushData(void *data, GLsizeiptr size);
 
     GLsizeiptr offset() const;
 
-    ~StaticBuffer();
+    ~UnmappableBuffer();
 
 private:
     GLsizeiptr mSize;
     GLsizeiptr mOffset;
+    GLenum mUsage;
 
     void resizeBuffer(GLsizeiptr size);
 };

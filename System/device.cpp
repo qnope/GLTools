@@ -35,6 +35,9 @@ Device::Device(int width, int height, std::string name, bool debug) :
     }
     glEnable(GL_DEPTH_TEST);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    if(GLEW_ARB_shader_draw_parameters)
+        std::cerr << "lollll"<<std::endl;
 }
 
 void Device::update() {

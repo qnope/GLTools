@@ -1,6 +1,6 @@
 #include <GL/glew.h>
-#include "System/GL/Buffer/staticbuffer.hpp"
-#include "System/GL/Buffer/dynamicbuffer.hpp"
+#include "System/GL/Buffer/unmappablebuffer.hpp"
+#include "System/GL/Buffer/mappablebuffer.hpp"
 #include "System/device.hpp"
 #include "System/GL/Pipeline/vao.hpp"
 #include "System/GL/Pipeline/pipeline.hpp"
@@ -29,9 +29,9 @@ int main(int argc, char *argv[])
     GLuint index[] = {0, 1, 2, 3};
 
     // Build buffers
-    StaticBuffer bufferVertices(sizeof vertices, vertices);
-    StaticBuffer bufferUv(sizeof uv, uv);
-    StaticBuffer bufferIndex(sizeof index, index);
+    UnmappableBuffer bufferVertices(sizeof vertices, vertices, GL_STATIC_DRAW);
+    UnmappableBuffer bufferUv(sizeof uv, uv, GL_STATIC_DRAW);
+    UnmappableBuffer bufferIndex(sizeof index, index, GL_STATIC_DRAW);
     Vao vao; // Build VAO
 
     GLuint buffers[] = {bufferVertices, bufferUv};
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
 
     std::unique_ptr<Texture> texture = Texture::load2DImage("../Images/img2.png");
 
-    DynamicBuffer materialsBuffer(sizeof(Material), false);
+    MappableBuffer materialsBuffer(sizeof(Material), true, false);
 
     glClearColor(1, 1, 1, 1);
 

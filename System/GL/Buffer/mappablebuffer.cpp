@@ -1,8 +1,10 @@
-#include "dynamicbuffer.hpp"
+#include "mappablebuffer.hpp"
 #include <GL/glew.h>
+#include <cassert>
 
-DynamicBuffer::DynamicBuffer(GLsizeiptr size, bool read) :
+MappableBuffer::MappableBuffer(GLsizeiptr size, bool write, bool read) :
     mIndex(0) {
+    assert(write | read);
     glCreateBuffers(1, &mId);
 
     GLint alignmentUniform, alignmentShaderStorage, alignment;
@@ -19,35 +21,39 @@ DynamicBuffer::DynamicBuffer(GLsizeiptr size, bool read) :
     mSize = size;
     mTotalSize = size * 3;
 
-    GLbitfield flags = GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT;
+    GLbitfield flags = GL_MAP_PERSISTENT_BIT;
 
     if(read)
         flags |= GL_MAP_READ_BIT;
 
+    if(write)
+        flags |= GL_MAP_WRITE_BIT;
+
     glNamedBufferStorage(mId, mTotalSize, nullptr,
                          flags);
 
-    flags |= GL_MAP_FLUSH_EXPLICIT_BIT;
+    if(write)
+        flags |= GL_MAP_FLUSH_EXPLICIT_BIT;
 
     mPtr = (char*)glMapNamedBufferRange(mId, 0, mTotalSize, flags);
 }
 
-GLintptr DynamicBuffer::currentOffset() {
+GLintptr MappableBuffer::currentOffset() {
     return mSize * mIndex;
 }
 
-GLsizeiptr DynamicBuffer::size() {
+GLsizeiptr MappableBuffer::size() {
     return mSize;
 }
 
-void DynamicBuffer::roundRobin() {
+void MappableBuffer::roundRobin() {
     mIndex = (mIndex + 1) % 3;
 }
 
-void DynamicBuffer::flush() {
+void MappableBuffer::flush() {
     glFlushMappedNamedBufferRange(mId, mSize * mIndex, mSize);
 }
 
-DynamicBuffer::~DynamicBuffer() {
+MappableBuffer::~MappableBuffer() {
     glDeleteBuffers(1, &mId);
 }

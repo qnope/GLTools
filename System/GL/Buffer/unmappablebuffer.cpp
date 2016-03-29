@@ -1,11 +1,12 @@
-#include "staticbuffer.hpp"
+#include "unmappablebuffer.hpp"
 #include "System/tools.hpp"
 #include <iostream>
 
-StaticBuffer::StaticBuffer(GLsizeiptr size, void *data) {
-    mSize = nextPowerOfTwo(size);
+UnmappableBuffer::UnmappableBuffer(GLsizeiptr size, void *data, GLenum usage) :
+    mSize(nextPowerOfTwo(size)),
+    mUsage(usage) {
     glCreateBuffers(1, &mId);
-    glNamedBufferData(mId, mSize, nullptr, GL_STATIC_DRAW);
+    glNamedBufferData(mId, mSize, nullptr, mUsage);
 
     if(data != nullptr) {
         glNamedBufferSubData(mId, 0, size, data);
@@ -16,24 +17,24 @@ StaticBuffer::StaticBuffer(GLsizeiptr size, void *data) {
         mOffset = 0;
 }
 
-void StaticBuffer::pushData(void *data, GLsizeiptr size) {
+void UnmappableBuffer::pushData(void *data, GLsizeiptr size) {
     if(mOffset + size > mSize)
         resizeBuffer(mOffset + size);
     glNamedBufferSubData(mId, mOffset, size, data);
     mOffset += size;
 }
 
-GLsizeiptr StaticBuffer::offset() const {
+GLsizeiptr UnmappableBuffer::offset() const {
     return mOffset;
 }
 
-void StaticBuffer::resizeBuffer(GLsizeiptr size) {
+void UnmappableBuffer::resizeBuffer(GLsizeiptr size) {
     GLuint newBuffer;
 
     size = nextPowerOfTwo(size);
 
     glCreateBuffers(1, &newBuffer);
-    glNamedBufferData(newBuffer, size, nullptr, GL_STATIC_DRAW);
+    glNamedBufferData(newBuffer, size, nullptr, mUsage);
     glCopyNamedBufferSubData(mId, newBuffer, 0, 0, mSize);
     glDeleteBuffers(1, &mId);
 
@@ -41,6 +42,6 @@ void StaticBuffer::resizeBuffer(GLsizeiptr size) {
     mSize = size;
 }
 
-StaticBuffer::~StaticBuffer() {
+UnmappableBuffer::~UnmappableBuffer() {
     glDeleteBuffers(1, &mId);
 }
