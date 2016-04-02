@@ -7,11 +7,10 @@ layout(binding = 0) uniform Materials {
 };
 
 layout(location = 0) in vec2 uv;
-layout(location = 1) in flat int id;
 
 layout(location = 0) out vec4 outColor;
 
 void main() {
     vec2 uvFlipped = vec2(uv.x, 1 - uv.y);
-    outColor = textureLod(diffuse[id], uvFlipped, textureQueryLOD(diffuse[id], uvFlipped).x);
+    outColor = textureLod(diffuse[0], uvFlipped, textureQueryLOD(diffuse[0], uvFlipped).x);
 }

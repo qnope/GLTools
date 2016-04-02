@@ -10,7 +10,7 @@
 #include "System/Model/model.hpp"
 
 struct Materials {
-    GLsampler2D diffuse;
+    GLsampler2D diffuse[2];
 };
 
 int main(int argc, char *argv[])
@@ -81,13 +81,13 @@ int main(int argc, char *argv[])
 
     FrameBuffer fbo;
 
-    fbo.addColorRenderTarget(RenderTarget::texture2D(1024, 1024, GL_RGB8));
+    fbo.addColorRenderTarget(Texture::texture2D(1024, 1024, GL_RGB8));
 
     while(device.isRunning()) {
         device.update();
 
         // This part is to render material into a fbo
-        *materialsBuffer.map<Materials>() = Materials{texture};
+        *materialsBuffer.map<Materials>() = Materials{texture, fbo.handleColor(0)};
         pipelineState.viewPortState.width = 1024;
         pipelineState.viewPortState.height = 1024;
         pipeline.setPipelineState(pipelineState);
@@ -110,7 +110,6 @@ int main(int argc, char *argv[])
         finalState.viewPortState.height = device.height();
         final.setPipelineState(finalState);
         final.bind();
-        fbo.bindTextures(0, 0, 1);
         glBindVertexArray(vao);
         glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_INT, 0);
 

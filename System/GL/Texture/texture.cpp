@@ -20,6 +20,10 @@ void Texture::parameter() {
     glTextureParameteri(mId, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 }
 
+void Texture::makeResident() {
+    mHandle = glGetTextureHandleARB(mId);
+    glMakeTextureHandleResidentARB(mHandle);
+}
 
 std::unique_ptr<Texture> Texture::loadImage2D(const std::string &path) {
     std::unique_ptr<Texture> texture = std::make_unique<Texture>();
@@ -44,12 +48,23 @@ std::unique_ptr<Texture> Texture::loadImage2D(const std::string &path) {
 
     glGenerateTextureMipmap(*texture);
 
-    texture->mHandle = glGetTextureHandleARB(*texture);
-    glMakeTextureHandleResidentARB(*texture);
+    texture->makeResident();
 
     SDL_FreeSurface(surface);
 
     return texture;
+}
+
+std::unique_ptr<Texture> Texture::texture2D(GLuint w, GLuint h,
+                                            GLenum internalFormat) {
+    auto rt = std::make_unique<Texture>();
+
+    glCreateTextures(GL_TEXTURE_2D, 1, &rt->mId);
+    rt->parameter();
+    glTextureStorage2D(rt->mId, 1, internalFormat, w, h);
+    rt->makeResident();
+
+    return rt;
 }
 
 void Texture::getFormats(SDL_Surface *img, GLenum &internalFormat, GLenum &format) {

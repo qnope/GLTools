@@ -14,7 +14,6 @@ SOURCES += main.cpp \
     System/GL/Texture/texture.cpp \
     System/GL/Pipeline/pipelinestate.cpp \
     System/tools.cpp \
-    System/GL/Texture/rendertarget.cpp \
     System/GL/Texture/framebuffer.cpp \
     System/GL/Buffer/unmappablebuffer.cpp \
     System/GL/Buffer/mappablebuffer.cpp \
@@ -38,7 +37,6 @@ HEADERS += \
     System/GL/Texture/texture.hpp \
     System/GL/Pipeline/pipelinestate.hpp \
     System/tools.hpp \
-    System/GL/Texture/rendertarget.hpp \
     System/GL/Texture/framebuffer.hpp \
     System/GL/Buffer/unmappablebuffer.hpp \
     System/GL/Buffer/mappablebuffer.hpp \

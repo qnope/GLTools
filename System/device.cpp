@@ -32,6 +32,8 @@ Device::Device(int width, int height, std::string name, bool debug) :
     if(debug) {
         glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
         glDebugMessageCallback(callBack, nullptr);
+        glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE,
+                              0, nullptr, true);
     }
 }
 

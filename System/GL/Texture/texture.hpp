@@ -12,6 +12,7 @@ public:
     Texture();
 
     void parameter();
+    void makeResident();
 
     operator GLsampler2D();
 
@@ -19,6 +20,7 @@ public:
 
 public:
     static std::unique_ptr<Texture> loadImage2D(std::string const &path);
+    static std::unique_ptr<Texture> texture2D(GLuint w, GLuint h, GLenum internalFormat);
 
 private:
     GLuint64 mHandle;

@@ -24,7 +24,7 @@ FrameBuffer::FrameBuffer()
     glCreateFramebuffers(1, &mId);
 }
 
-void FrameBuffer::addColorRenderTarget(std::unique_ptr<RenderTarget> &&colorBuffer) {
+void FrameBuffer::addColorRenderTarget(std::unique_ptr<Texture> &&colorBuffer) {
     glNamedFramebufferTexture(mId, GL_COLOR_ATTACHMENT0 + mColorBuffers.size(),
                               *colorBuffer, 0);
 
@@ -33,7 +33,7 @@ void FrameBuffer::addColorRenderTarget(std::unique_ptr<RenderTarget> &&colorBuff
     glNamedFramebufferDrawBuffers(mId, mColorBuffers.size(), attachments);
 }
 
-void FrameBuffer::changerDepthStencilBuffer(std::unique_ptr<RenderTarget> &&depthStencilBuffer,
+void FrameBuffer::changerDepthStencilBuffer(std::unique_ptr<Texture> &&depthStencilBuffer,
                                             bool depth, bool stencil) {
     if(depth && stencil)
         glNamedFramebufferTexture(mId, GL_DEPTH_STENCIL_ATTACHMENT, *depthStencilBuffer, 0);
@@ -50,7 +50,7 @@ void FrameBuffer::changerDepthStencilBuffer(std::unique_ptr<RenderTarget> &&dept
     mDepthStencilBuffer = std::move(depthStencilBuffer);
 }
 
-void FrameBuffer::bindTextures(GLuint firstColorBuffer,
+/*void FrameBuffer::bindTextures(GLuint firstColorBuffer,
                                GLuint firstBinding,
                                GLuint number) const {
     static std::vector<GLuint> textures; // static for high perf
@@ -61,6 +61,10 @@ void FrameBuffer::bindTextures(GLuint firstColorBuffer,
     glBindTextures(firstBinding, number, &textures[0]);
 
     textures.clear();
+}*/
+
+GLuint64 FrameBuffer::handleColor(std::size_t i) {
+    return *mColorBuffers[i];
 }
 
 FrameBuffer::~FrameBuffer() {
