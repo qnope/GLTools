@@ -4,10 +4,10 @@
 #include "System/device.hpp"
 #include "System/GL/Pipeline/vao.hpp"
 #include "System/GL/Pipeline/pipeline.hpp"
-#include "System/GL/Pipeline/shadermanager.hpp"
-#include "System/GL/Texture/texturemanager.hpp"
+#include "System/GL/Pipeline/shaderrepository.hpp"
+#include "System/GL/Texture/texturerepository.hpp"
 #include "System/GL/Texture/framebuffer.hpp"
-#include "System/Model/model.hpp"
+#include "System/Model/modelimporter.hpp"
 
 struct Materials {
     GLsampler2D diffuse[2];
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     vao.format(0, 2, GL_FLOAT, false, 0);
     vao.format(1, 2, GL_FLOAT, false, 0);
 
-    ShaderManager shaderManager;
+    ShaderRepository shaderManager;
 
     // Create the first pipeline to render on one FBO
     Pipeline pipeline;
@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 
     PipelineState finalState;
 
-    TextureManager textureManager;
+    TextureRepository textureManager;
 
     GLsampler2D texture = textureManager.image2D("../Images/img2.png");
 

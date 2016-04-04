@@ -1,10 +1,13 @@
 #pragma once
 
 #include <assimp/material.h>
-#include "System/GL/Texture/texturemanager.hpp"
+#include "System/glm.hpp"
+#include "System/GL/Texture/texturerepository.hpp"
 
 struct Material {
-    Material(aiMaterial *mtl, TextureManager &textureManager, std::string const &globalPath);
+    Material(aiMaterial *mtl, TextureRepository &textureManager, std::string const &globalPath);
 
+    glm::vec3 color;
     GLsampler2D handle;
+    bool useTexture;
 };

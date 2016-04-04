@@ -3,7 +3,7 @@
 #include <memory>
 #include <unordered_map>
 
-class ShaderManager {
+class ShaderRepository {
 public:
     GLuint shader(std::string const &path, GLenum type);
     

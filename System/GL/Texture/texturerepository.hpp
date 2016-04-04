@@ -2,7 +2,7 @@
 #include "texture.hpp"
 #include <unordered_map>
 
-class TextureManager
+class TextureRepository
 {
 public:
     GLsampler2D image2D(std::string const &path);

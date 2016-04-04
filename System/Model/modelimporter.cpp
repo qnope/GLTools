@@ -1,9 +1,9 @@
-#include "model.hpp"
+#include "modelimporter.hpp"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-Model::Model(const std::string &path, TextureManager &texManager) {
+ModelImporter::ModelImporter(const std::string &path, TextureRepository &texManager) {
     Assimp::Importer imp;
 
     std::string globalPath;

@@ -8,7 +8,9 @@ Mesh::Mesh(aiMesh const *mesh) {
 
         v.position = vec3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
         v.normal = vec3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
-        v.texCoord = vec2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
+
+        if(mesh->HasTextureCoords(0))
+            v.texCoord = vec2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
 
         vertices.emplace_back(v);
     }

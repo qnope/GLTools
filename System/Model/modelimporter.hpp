@@ -3,10 +3,10 @@
 #include "material.hpp"
 #include "mesh.hpp"
 
-class Model
+class ModelImporter
 {
 public:
-    Model(std::string const &path, TextureManager &texManager);
+    ModelImporter(std::string const &path, TextureRepository &texManager);
 
 private:
     std::vector<Material> mMaterials;
