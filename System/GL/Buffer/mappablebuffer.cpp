@@ -2,8 +2,9 @@
 #include <GL/glew.h>
 #include "mappablebuffer.hpp"
 
-MappableBuffer::MappableBuffer(GLsizeiptr size, bool write, bool read) :
-    mIndex(0) {
+MappableBuffer::MappableBuffer(GLsizeiptr size, unsigned roundRobin, bool write, bool read) :
+    mIndex(0),
+    mRoundRobin(roundRobin) {
     assert(write | read);
     glCreateBuffers(1, &mId);
 
@@ -19,7 +20,7 @@ MappableBuffer::MappableBuffer(GLsizeiptr size, bool write, bool read) :
     }
 
     mSize = size;
-    mTotalSize = size * 3;
+    mTotalSize = size * roundRobin;
 
     GLbitfield flags = GL_MAP_PERSISTENT_BIT;
 
@@ -46,8 +47,8 @@ GLsizeiptr MappableBuffer::size() {
     return mSize;
 }
 
-void MappableBuffer::roundRobin() {
-    mIndex = (mIndex + 1) % 3;
+void MappableBuffer::performRoundRobin() {
+    mIndex = (mIndex + 1) % mRoundRobin;
 }
 
 void MappableBuffer::flush() {

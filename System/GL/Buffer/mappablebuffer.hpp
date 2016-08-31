@@ -5,12 +5,12 @@
 /**
  * @brief The MappableBuffer class
  *
- * This buffer use the triple buffering with robin count
+ * This buffer use the n buffering with robin count
  */
 class MappableBuffer : public GLResource
 {
 public:
-    MappableBuffer(GLsizeiptr size, bool write = true, bool read = false);
+    MappableBuffer(GLsizeiptr size, unsigned roundRobin, bool write = true, bool read = false);
 
     template<typename T>
     T *map() {
@@ -24,7 +24,7 @@ public:
     /**
      * @brief flush
      *
-     * Ensure data wrote by the client be visible by the server
+     * Ensure data wrote by the client will be visible by the server
      */
     void flush();
 
@@ -33,13 +33,14 @@ public:
      *
      * Perform the round robin on buffer
      */
-    void roundRobin();
+    void performRoundRobin();
 
     ~MappableBuffer();
 
 private:
-    unsigned mIndex; //!< 0, 1, 2 : triple buffering
+    unsigned mIndex; //!< 0, 1, 2 ... n-1 : n buffering
+    unsigned mRoundRobin;
     GLsizeiptr mSize;
-    GLsizeiptr mTotalSize; //!< size * 3
+    GLsizeiptr mTotalSize; //!< size * roundRobin
     char *mPtr;
 };

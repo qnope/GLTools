@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
 
     GLsampler2D texture = textureManager.image2D("../Images/img2.png");
 
-    MappableBuffer materialsBuffer(sizeof(Materials), true, false);
+    MappableBuffer materialsBuffer(sizeof(Materials), 3, true, false);
 
     glClearColor(1, 1, 1, 1);
 
@@ -100,7 +100,7 @@ int main(int argc, char *argv[])
         materialsBuffer.flush(); // Ensure date were wrote just before draw
         glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_INT, 0);
 
-        materialsBuffer.roundRobin(); // go to another buffer part
+        materialsBuffer.performRoundRobin(); // go to another buffer part
 
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 
