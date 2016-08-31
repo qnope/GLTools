@@ -1,6 +1,6 @@
 #pragma once
-#include "texture.hpp"
 #include <vector>
+#include "texture.hpp"
 
 class FrameBuffer : public GLResource
 {

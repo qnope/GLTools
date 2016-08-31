@@ -17,6 +17,8 @@ public:
         return mId;
     }
 
+    virtual ~GLResource() = default;
+
 protected:
     GLuint mId = 0;
 };

@@ -1,5 +1,5 @@
-#include "shader.hpp"
 #include <fstream>
+#include "shader.hpp"
 
 Shader::Shader(const std::string &path, GLenum type) {
     mId = glCreateShader(type);

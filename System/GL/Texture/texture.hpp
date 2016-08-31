@@ -1,8 +1,8 @@
 #pragma once
-#include "System/GL/glresource.hpp"
-#include <SDL2/SDL_image.h>
 #include <memory>
 #include <string>
+#include <SDL2/SDL_image.h>
+#include "System/GL/glresource.hpp"
 
 using GLsampler2D = GLuint64;
 

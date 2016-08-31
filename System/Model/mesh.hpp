@@ -1,7 +1,8 @@
 #pragma once
 
-#include <assimp/mesh.h>
+#include <vector>
 #include <GL/glew.h>
+#include <assimp/mesh.h>
 #include "System/glm.hpp"
 
 struct Vertex {

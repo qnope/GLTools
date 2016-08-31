@@ -1,7 +1,7 @@
 #pragma once
-#include "shader.hpp"
 #include <memory>
 #include <unordered_map>
+#include "shader.hpp"
 
 class ShaderRepository {
 public:

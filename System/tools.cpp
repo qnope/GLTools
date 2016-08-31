@@ -1,5 +1,5 @@
-#include "tools.hpp"
 #include <cmath>
+#include "tools.hpp"
 
 unsigned nextPowerOfTwo(unsigned number) {
     if(fmod(log2(number), 1) < 0.00001)

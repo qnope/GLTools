@@ -1,7 +1,7 @@
+#include <iostream>
 #include <stdexcept>
 #include <cassert>
 #include <GL/glew.h>
-#include <iostream>
 #include "device.hpp"
 #include "contextinitializer.hpp"
 

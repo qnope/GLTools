@@ -1,6 +1,6 @@
-#include "pipeline.hpp"
 #include <string>
 #include <stdexcept>
+#include "pipeline.hpp"
 
 Pipeline::Pipeline() {
     mId = glCreateProgram();

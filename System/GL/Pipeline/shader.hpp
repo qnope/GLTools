@@ -1,6 +1,6 @@
 #pragma once
-#include "System/GL/glresource.hpp"
 #include <string>
+#include "System/GL/glresource.hpp"
 
 class Shader : public GLResource
 {

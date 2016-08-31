@@ -1,6 +1,6 @@
-#include "input.hpp"
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
+#include "input.hpp"
 
 Input::Input(unsigned width, unsigned height) :
     mWidth(width), mHeight(height) {

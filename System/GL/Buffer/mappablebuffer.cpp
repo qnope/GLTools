@@ -1,6 +1,6 @@
-#include "mappablebuffer.hpp"
-#include <GL/glew.h>
 #include <cassert>
+#include <GL/glew.h>
+#include "mappablebuffer.hpp"
 
 MappableBuffer::MappableBuffer(GLsizeiptr size, bool write, bool read) :
     mIndex(0) {
