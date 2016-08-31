@@ -7,6 +7,7 @@ public:
     UnmappableBuffer(GLsizeiptr size, void *data, GLenum usage);
 
     void pushData(void *data, GLsizeiptr size);
+    void changeData(void *data, GLsizeiptr offset, GLsizeiptr size);
 
     GLsizeiptr offset() const;
 

@@ -23,6 +23,12 @@ void UnmappableBuffer::pushData(void *data, GLsizeiptr size) {
     mOffset += size;
 }
 
+void UnmappableBuffer::changeData(void *data, GLsizeiptr offset, GLsizeiptr size) {
+    if(offset + size > mSize)
+        resizeBuffer(offset + size);
+    glNamedBufferSubData(mId, offset, size, data);
+}
+
 GLsizeiptr UnmappableBuffer::offset() const {
     return mOffset;
 }
