@@ -4,7 +4,7 @@
 #include <SDL2/SDL_image.h>
 #include "System/GL/glresource.hpp"
 
-using GLsampler2D = GLuint64;
+using GLsampler = GLuint64;
 
 class Texture : public GLResource
 {
@@ -14,7 +14,7 @@ public:
     void parameter();
     void makeResident();
 
-    operator GLsampler2D();
+    operator GLsampler();
 
     ~Texture();
 

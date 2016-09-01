@@ -8,6 +8,6 @@ struct Material {
     Material(aiMaterial *mtl, TextureRepository &textureManager, std::string const &globalPath);
 
     glm::vec3 color;
-    GLsampler2D handle;
+    GLsampler handle;
     bool useTexture;
 };

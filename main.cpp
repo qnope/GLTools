@@ -11,7 +11,7 @@
 #include "System/Input/windowinput.hpp"
 
 struct Materials {
-    GLsampler2D diffuse[2];
+    GLsampler diffuse[2];
 };
 
 int main(int argc, char *argv[])
@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 
     TextureRepository textureManager;
 
-    GLsampler2D texture = textureManager.image2D("../Images/img2.png");
+    GLsampler texture = textureManager.image2D("../Images/img2.png");
 
     MappableBuffer materialsBuffer(sizeof(Materials), 3, true, false, false);
 

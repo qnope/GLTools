@@ -36,9 +36,8 @@ MappableBuffer::MappableBuffer(GLsizeiptr size, unsigned roundRobin, bool write,
     glNamedBufferStorage(mId, mTotalSize, nullptr,
                          flags);
 
-    if(write && !coherent) {
+    if(write && !coherent)
         flags |= GL_MAP_FLUSH_EXPLICIT_BIT;
-    }
 
     mPtr = (char*)glMapNamedBufferRange(mId, 0, mTotalSize, flags);
 }

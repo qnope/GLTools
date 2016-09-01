@@ -7,7 +7,7 @@ Texture::Texture()
 }
 
 
-Texture::operator GLsampler2D() {
+Texture::operator GLsampler() {
     return mHandle;
 }
 
