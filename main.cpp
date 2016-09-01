@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
 
     GLsampler2D texture = textureManager.image2D("../Images/img2.png");
 
-    MappableBuffer materialsBuffer(sizeof(Materials), 3, true, false);
+    MappableBuffer materialsBuffer(sizeof(Materials), 3, true, false, false);
 
     glClearColor(1, 1, 1, 1);
 

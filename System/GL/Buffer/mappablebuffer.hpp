@@ -10,7 +10,7 @@
 class MappableBuffer : public GLResource
 {
 public:
-    MappableBuffer(GLsizeiptr size, unsigned roundRobin, bool write = true, bool read = false);
+    MappableBuffer(GLsizeiptr size, unsigned roundRobin, bool write, bool read, bool coherent);
 
     template<typename T>
     T *map() {
@@ -24,7 +24,7 @@ public:
     /**
      * @brief flush
      *
-     * Ensure data wrote by the client will be visible by the server
+     * Ensure data wrote by the client will be visible by the server if it is not coherent
      */
     void flush();
 

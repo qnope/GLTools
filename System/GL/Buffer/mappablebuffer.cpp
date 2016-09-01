@@ -2,7 +2,7 @@
 #include <GL/glew.h>
 #include "mappablebuffer.hpp"
 
-MappableBuffer::MappableBuffer(GLsizeiptr size, unsigned roundRobin, bool write, bool read) :
+MappableBuffer::MappableBuffer(GLsizeiptr size, unsigned roundRobin, bool write, bool read, bool coherent) :
     mIndex(0),
     mRoundRobin(roundRobin) {
     assert(write | read);
@@ -30,11 +30,15 @@ MappableBuffer::MappableBuffer(GLsizeiptr size, unsigned roundRobin, bool write,
     if(write)
         flags |= GL_MAP_WRITE_BIT;
 
+    if(coherent)
+        flags |= GL_MAP_COHERENT_BIT;
+
     glNamedBufferStorage(mId, mTotalSize, nullptr,
                          flags);
 
-    if(write)
+    if(write && !coherent) {
         flags |= GL_MAP_FLUSH_EXPLICIT_BIT;
+    }
 
     mPtr = (char*)glMapNamedBufferRange(mId, 0, mTotalSize, flags);
 }
