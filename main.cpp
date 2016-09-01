@@ -8,6 +8,7 @@
 #include "System/GL/Texture/texturerepository.hpp"
 #include "System/GL/Texture/framebuffer.hpp"
 #include "System/Model/modelimporter.hpp"
+#include "System/Input/windowinput.hpp"
 
 struct Materials {
     GLsampler2D diffuse[2];
@@ -16,6 +17,9 @@ struct Materials {
 int main(int argc, char *argv[])
 {
     Device device(800, 600, "Graphic Engine", true);
+    std::shared_ptr<WindowInput> windowInput(std::make_shared<WindowInput>(800, 600));
+
+    device.assignInput(windowInput);
 
     float vertices[] = {-1, -1,
                         -1, 1,
@@ -83,8 +87,8 @@ int main(int argc, char *argv[])
 
     fbo.addColorRenderTarget(Texture::texture2D(1024, 1024, GL_RGB8));
 
-    while(device.isRunning()) {
-        device.update();
+    while(windowInput->isRunning()) {
+        device.updateInputs();
 
         // This part is to render material into a fbo
         *materialsBuffer.map<Materials>() = Materials{texture, fbo.handleColor(0)};
@@ -106,8 +110,8 @@ int main(int argc, char *argv[])
 
         // Here we render the fbo's texture to the screen
         glClear(GL_COLOR_BUFFER_BIT);
-        finalState.viewPortState.width = device.width();
-        finalState.viewPortState.height = device.height();
+        finalState.viewPortState.width = windowInput->width();
+        finalState.viewPortState.height = windowInput->height();
         final.setPipelineState(finalState);
         final.bind();
         glBindVertexArray(vao);

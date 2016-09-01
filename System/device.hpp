@@ -2,27 +2,25 @@
 #include <string>
 #include <memory>
 #include <SDL2/SDL.h>
+#include <vector>
 #include "contextinitializer.hpp"
-#include "input.hpp"
+#include "Input/abstractinput.hpp"
 
 class Device
 {
 public:
     Device(int width, int height, std::string name, bool debug = false);
 
-    bool isRunning() const;
+    void assignInput(std::shared_ptr<AbstractInput> input);
 
-    unsigned width() const;
-    unsigned height() const;
-
-    void update();
-
+    void updateInputs();
     void swapBuffers();
 
     ~Device();
 private:
     std::unique_ptr<ContextInitializer> mInitializer;
-    std::unique_ptr<Input> mInput;
+    std::vector<std::shared_ptr<AbstractInput>> mInputs;
+
     SDL_Window *mMainWindow;
     SDL_GLContext mContext;
 

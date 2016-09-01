@@ -6,7 +6,6 @@ CONFIG -= qt
 SOURCES += main.cpp \
     System/device.cpp \
     System/contextinitializer.cpp \
-    System/input.cpp \
     System/GL/Pipeline/vao.cpp \
     System/GL/Pipeline/pipeline.cpp \
     System/GL/Pipeline/shader.cpp \
@@ -20,14 +19,14 @@ SOURCES += main.cpp \
     System/Model/material.cpp \
     System/Model/modelimporter.cpp \
     System/GL/Texture/texturerepository.cpp \
-    System/GL/Pipeline/shaderrepository.cpp
+    System/GL/Pipeline/shaderrepository.cpp \
+    System/Input/windowinput.cpp
 
 LIBS += -lSDL2 -lGLEW -lGL -lSDL2_image -lassimp
 
 HEADERS += \
     System/device.hpp \
     System/contextinitializer.hpp \
-    System/input.hpp \
     System/GL/glresource.hpp \
     System/GL/Pipeline/vao.hpp \
     System/GL/Pipeline/pipeline.hpp \
@@ -44,7 +43,9 @@ HEADERS += \
     System/glm.hpp \
     System/Model/modelimporter.hpp \
     System/GL/Texture/texturerepository.hpp \
-    System/GL/Pipeline/shaderrepository.hpp
+    System/GL/Pipeline/shaderrepository.hpp \
+    System/Input/abstractinput.hpp \
+    System/Input/windowinput.hpp
 
 DISTFILES += \
     Shaders/shader.frag \

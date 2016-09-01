@@ -12,7 +12,6 @@ void callBack(GLenum source, GLenum type, GLuint id, GLenum severity,
 
 Device::Device(int width, int height, std::string name, bool debug) :
     mInitializer(std::make_unique<ContextInitializer>(debug)),
-    mInput(std::make_unique<Input>(width, height)),
     mName(std::move(name)) {
     mMainWindow = SDL_CreateWindow(mName.c_str(),
                                    SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -37,24 +36,20 @@ Device::Device(int width, int height, std::string name, bool debug) :
     }
 }
 
-void Device::update() {
-    mInput->update();
+void Device::assignInput(std::shared_ptr<AbstractInput> input) {
+    mInputs.push_back(input);
 }
 
-bool Device::isRunning() const {
-    return !mInput->mQuit;
+void Device::updateInputs() {
+    SDL_Event event;
+
+    while(SDL_PollEvent(&event))
+        for(auto &input : mInputs)
+            input->update(event);
 }
 
 void Device::swapBuffers() {
     SDL_GL_SwapWindow(mMainWindow);
-}
-
-unsigned Device::width() const {
-    return mInput->mWidth;
-}
-
-unsigned Device::height() const {
-    return mInput->mHeight;
 }
 
 Device::~Device() {
