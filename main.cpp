@@ -9,6 +9,7 @@
 #include "System/GL/Texture/framebuffer.hpp"
 #include "System/Model/modelimporter.hpp"
 #include "System/Input/windowinput.hpp"
+#include "System/GL/Texture/emptytexture2d.hpp"
 
 struct Materials {
     GLsampler diffuse[2];
@@ -85,7 +86,7 @@ int main(int argc, char *argv[])
 
     FrameBuffer fbo;
 
-    fbo.addColorRenderTarget(Texture::texture2D(1024, 1024, GL_RGB8));
+    fbo.addColorRenderTarget(std::make_unique<EmptyTexture2D>(1024, 1024, GL_RGB8, true));
 
     while(windowInput->isRunning()) {
         device.updateInputs();

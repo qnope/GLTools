@@ -1,14 +1,14 @@
 #pragma once
 #include <vector>
-#include "texture.hpp"
+#include "abstracttexture.hpp"
 
 class FrameBuffer : public GLResource
 {
 public:
     FrameBuffer();
 
-    void addColorRenderTarget(std::unique_ptr<Texture> &&colorBuffer);
-    void changerDepthStencilBuffer(std::unique_ptr<Texture> &&depthStencilBuffer,
+    void addColorRenderTarget(std::unique_ptr<AbstractTexture> &&colorBuffer);
+    void changerDepthStencilBuffer(std::unique_ptr<AbstractTexture> &&depthStencilBuffer,
                                    bool depth, bool stencil);
 
     GLuint64 handleColor(std::size_t i);
@@ -17,6 +17,6 @@ public:
     ~FrameBuffer();
 
 private:
-    std::vector<std::unique_ptr<Texture>> mColorBuffers;
-    std::unique_ptr<Texture> mDepthStencilBuffer;
+    std::vector<std::unique_ptr<AbstractTexture>> mColorBuffers;
+    std::unique_ptr<AbstractTexture> mDepthStencilBuffer;
 };

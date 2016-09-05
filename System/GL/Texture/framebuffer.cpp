@@ -24,7 +24,7 @@ FrameBuffer::FrameBuffer()
     glCreateFramebuffers(1, &mId);
 }
 
-void FrameBuffer::addColorRenderTarget(std::unique_ptr<Texture> &&colorBuffer) {
+void FrameBuffer::addColorRenderTarget(std::unique_ptr<AbstractTexture> &&colorBuffer) {
     glNamedFramebufferTexture(mId, GL_COLOR_ATTACHMENT0 + mColorBuffers.size(),
                               *colorBuffer, 0);
 
@@ -33,7 +33,7 @@ void FrameBuffer::addColorRenderTarget(std::unique_ptr<Texture> &&colorBuffer) {
     glNamedFramebufferDrawBuffers(mId, mColorBuffers.size(), attachments);
 }
 
-void FrameBuffer::changerDepthStencilBuffer(std::unique_ptr<Texture> &&depthStencilBuffer,
+void FrameBuffer::changerDepthStencilBuffer(std::unique_ptr<AbstractTexture> &&depthStencilBuffer,
                                             bool depth, bool stencil) {
     if(depth && stencil)
         glNamedFramebufferTexture(mId, GL_DEPTH_STENCIL_ATTACHMENT, *depthStencilBuffer, 0);

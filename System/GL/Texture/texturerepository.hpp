@@ -1,6 +1,6 @@
 #pragma once
 #include <unordered_map>
-#include "texture.hpp"
+#include "image2d.hpp"
 
 class TextureRepository
 {
@@ -8,5 +8,5 @@ public:
     GLsampler image2D(std::string const &path);
 
 private:
-    std::unordered_map<std::string, std::unique_ptr<Texture>> mTextures;
+    std::unordered_map<std::string, std::unique_ptr<Image2D>> mTextures;
 };
