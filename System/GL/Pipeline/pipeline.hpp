@@ -16,6 +16,6 @@ public:
 
     ~Pipeline();
 
-private:
+protected:
     PipelineState mPipelineState;
 };
